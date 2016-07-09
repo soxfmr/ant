@@ -7,4 +7,4 @@ python ant.py example.com
 ```
 
 # Snapshot
-![snapshot](http://i.imgur.com/1U7jzxJ.png)
+![snapshot](http://i.imgur.com/JwH9rJB.png)
