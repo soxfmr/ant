@@ -3,8 +3,6 @@ import requests
 import json
 import re
 from provider import send
-import pdb
-
 
 URL  					= 'https://phpinfo.me/bing.php'
 KEY_IP 					= 'ip'
@@ -14,7 +12,7 @@ KEY_DOMAIN				= 'domain'
 def retrieve(target, ip):
 	retval = []
 	try:
-		result = send(URL, { 
+		result = send(URL, {
 				KEY_IP					: ip,
 				KEY_ACTION				: 'query'
 			})

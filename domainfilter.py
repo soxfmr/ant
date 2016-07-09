@@ -49,29 +49,32 @@ class DomainFilter():
 
 		for thread in self.thread_pool:
 			thread.join()
-		
+
 		self.callback(self.confirm_list)
 
 	def query(self):
 		while True:
 			if self.queue.empty():
 				break
-
 			domain = self.queue.get()
-			# Retrieve the A records
-			answer = dns.resolver.query(domain, 'A')
-			if not answer: continue
 
-			for record in answer:
-				if self.target == record:
-					try:
-						self.lock.acquire()
-						if not domain in self.confirm_list:
-							self.confirm_list.append(domain)
-							print Fore.GREEN + ('[+] %s confirmed' % domain)
-					finally:
-						self.lock.release()
-					# jump out
-					break
+			try:
+				# Retrieve the A records
+				answer = dns.resolver.query(domain, 'A')
+				if not answer: continue
+
+				for record in answer:
+					if self.target == record.address:
+						try:
+							self.lock.acquire()
+							if not domain in self.confirm_list:
+								self.confirm_list.append(domain)
+								print Fore.GREEN + ('[+] %s confirmed' % domain)
+						finally:
+							self.lock.release()
+						# jump out
+						break
+			except:
+				continue
 
 			self.queue.task_done()

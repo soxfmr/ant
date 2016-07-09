@@ -3,7 +3,6 @@ import requests
 import json
 from provider import send
 
-
 URL  					= 'http://domains.yougetsignal.com/domains.php'
 KEY_REMOTE_ADDR 		= 'remoteAddress'
 KEY_RESERVE_KEY 		= 'key'
@@ -13,13 +12,13 @@ KEY_DOMAIN_ARRAY 		= 'domainArray'
 def retrieve(target, ip):
 	retval = []
 	try:
-		result = send(URL, 
-			payload = { 
+		result = send(URL,
+			payload = {
 				KEY_REMOTE_ADDR 		: target,
 				KEY_RESERVE_KEY			: '',
 				KEY_RESERVE_UNDERLINE	: ''
 			},
-			headers = {				
+			headers = {
 				'Referer' : 'http://www.yougetsignal.com/tools/web-sites-on-web-server'
 			})
 		if result:
